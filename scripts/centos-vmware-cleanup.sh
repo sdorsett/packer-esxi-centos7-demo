@@ -46,9 +46,9 @@ unset HISTFILE
 echo "==> yum -y clean all"
 yum -y clean all
 
-#echo "==> Zero out the free space to save space in the final image"
-#(dd if=/dev/zero of=/EMPTY bs=1M)>/dev/null 2>&1
-#(rm -rf /EMPTY)>/dev/null 2>&1
+echo "==> Zero out the free space to save space in the final image"
+dd if=/dev/zero of=/EMPTY bs=1M
+rm -rf /EMPTY
 
 # Make sure we wait until all the data is written to disk, otherwise
 # Packer might quit too early before the large files are deleted
