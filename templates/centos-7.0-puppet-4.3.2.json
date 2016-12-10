@@ -1,0 +1,72 @@
+{
+  "variables": {
+    "version": "1.0"
+  },
+  "builders": [
+    {
+      "name": "centos-70-puppet-432",
+      "vm_name": "centos-70-puppet-432",
+      "vmdk_name": "centos-70-puppet-432",
+      "type": "vmware-iso",
+      "communicator": "ssh",
+      "ssh_pty": "true",
+      "headless": false,
+      "disk_size": 8192,
+      "guest_os_type": "rhel6-64",
+      "iso_url": "./iso/CentOS-7-x86_64-Minimal-1511.iso",
+      "iso_checksum": "783eef50e1fb91c78901d0421d8114a29b998478",
+      "iso_checksum_type": "sha1",
+      "shutdown_command": "sudo -S /usr/sbin/shutdown -h now",
+
+      "remote_host": "192.168.1.201",
+      "remote_datastore": "datastore-01",
+      "remote_username": "root",
+      "remote_password": "password",
+      "remote_type": "esx5",
+      "format": "ovf",
+      "keep_registered": "false",
+      "ssh_username": "root",
+      "ssh_password": "P@ssword123",
+      "ssh_wait_timeout": "60m",
+      "tools_upload_flavor": "linux",
+      "http_directory": ".",
+      "boot_wait": "7s",
+      "vmx_data": {
+        "memsize": "4096",
+        "numvcpus": "2",
+        "ethernet0.networkName": "VM Network",
+        "ethernet0.present": "TRUE",
+        "ethernet0.startConnected": "TRUE",
+        "ethernet0.virtualDev": "e1000",
+        "ethernet0.addressType": "generated",
+        "ethernet0.generatedAddressOffset": "0",
+        "ethernet0.wakeOnPcktRcv": "FALSE"
+
+      },
+      "vmx_data_post": {
+        "ide1:0.startConnected": "FALSE",
+        "ide1:0.clientDevice": "TRUE",
+        "ide1:0.fileName": "emptyBackingString",
+        "ethernet0.virtualDev": "vmxnet3"
+      },
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/scripts/centos-7-kickstart.cfg<enter><wait>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "scripts/centos-7-vmware-tools_install.sh"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/centos-install-puppet-432.sh"
+    },
+    {
+      "type": "shell",
+      "execute_command": "{{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "script": "scripts/centos-vmware-cleanup.sh"
+    }
+  ]
+}
