@@ -13,8 +13,9 @@
 # 
 # Next you can validate that this is the sha1sum listed in the packer template by running the following command:
 #
-# [root@packer packer-esxi-centos7-demo]# grep '783eef50e1fb91c78901d0421d8114a29b998478' templates/centos-7.0-puppet-4.3.2.json
+# [root@packer packer-esxi-centos7-demo]# grep 'iso_checksum' templates/centos-7.0-puppet-4.3.2.json
 #       "iso_checksum": "783eef50e1fb91c78901d0421d8114a29b998478",
+#       "iso_checksum_type": "sha1",
 # [root@packer packer-esxi-centos7-demo]# 
 #
 #
