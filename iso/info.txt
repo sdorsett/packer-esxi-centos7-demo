@@ -1,0 +1,20 @@
+# This directory should contain .iso files used by packer builders.
+# For this demo you need to download the CentOS-7-x86_64-Minimal-1511.iso file
+# from one of the mirrors listed at http://isoredirect.centos.org/centos/7/isos/x86_64/
+#
+# You should also verify that the downloaded .iso file has a sha1sum that matches the sha listed
+# in the template/centos-7-puppet-432.json file.
+#
+# You can generate the sha1sum of the downloaded .iso by running the following command:
+#
+# [root@packer packer-esxi-centos7-demo]# sha1sum iso/CentOS-7-x86_64-Minimal-1511.iso 
+# 783eef50e1fb91c78901d0421d8114a29b998478  iso/CentOS-7-x86_64-Minimal-1511.iso
+# [root@packer packer-esxi-centos7-demo]# 
+# 
+# Next you can validate that this is the sha1sum listed in the packer template by running the following command:
+#
+# [root@packer packer-esxi-centos7-demo]# grep '783eef50e1fb91c78901d0421d8114a29b998478' templates/centos-7.0-puppet-4.3.2.json
+#       "iso_checksum": "783eef50e1fb91c78901d0421d8114a29b998478",
+# [root@packer packer-esxi-centos7-demo]# 
+#
+#
